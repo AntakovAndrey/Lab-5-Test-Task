@@ -18,9 +18,11 @@ public class UserService : IUserService
     {
         _dbContext = dbContext;
     }
+    
+    /// <returns>Returns a User with the biggest amount of sessions</returns>
     public async Task<User> GetUserAsync()
     {
-        throw new NotImplementedException();
+        return await _dbContext.Users.OrderByDescending(user=>user.Sessions.Count).FirstOrDefaultAsync();
     }
     
     /// <returns>Returns Users that has at least 1 Mobile session</returns>
