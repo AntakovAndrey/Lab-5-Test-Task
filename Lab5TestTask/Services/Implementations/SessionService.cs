@@ -18,10 +18,10 @@ public class SessionService : ISessionService
     {
         _dbContext = dbContext;
     }
-
+    /// <returns>Returns the first(earliest) desktop Session</returns>
     public async Task<Session> GetSessionAsync()
     {
-        throw new NotImplementedException();
+        return await _dbContext.Sessions.Where(session => session.DeviceType == DeviceType.Desktop).OrderBy(session => session.StartedAtUTC).FirstAsync();
     }
     
     /// <returns>Returns only Sessions from Active users that were ended before 2025</returns>
