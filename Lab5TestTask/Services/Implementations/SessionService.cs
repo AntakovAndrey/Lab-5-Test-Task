@@ -1,4 +1,5 @@
 ﻿using Lab5TestTask.Data;
+using Lab5TestTask.Enums;
 using Lab5TestTask.Models;
 using Lab5TestTask.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -22,9 +23,10 @@ public class SessionService : ISessionService
     {
         throw new NotImplementedException();
     }
-
+    
+    /// <returns>Returns only Sessions from Active users that were ended before 2025</returns>
     public async Task<List<Session>> GetSessionsAsync()
     {
-        throw new NotImplementedException();
+        return await _dbContext.Sessions.Where(session=>session.EndedAtUTC.Year<2025&&session.User.Status==UserStatus.Active).ToListAsync();
     }
 }
