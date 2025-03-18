@@ -1,4 +1,5 @@
 ﻿using Lab5TestTask.Data;
+using Lab5TestTask.Enums;
 using Lab5TestTask.Models;
 using Lab5TestTask.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,10 @@ public class UserService : IUserService
     {
         throw new NotImplementedException();
     }
-
+    
+    /// <returns>Returns Users that has at least 1 Mobile session</returns>
     public async Task<List<User>> GetUsersAsync()
     {
-        throw new NotImplementedException();
+        return await _dbContext.Users.Where(user=>user.Sessions.Any(x=>x.DeviceType==DeviceType.Mobile)).ToListAsync();
     }
 }
